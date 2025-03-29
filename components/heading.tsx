@@ -1,17 +1,20 @@
 import { cn } from "@/lib/utils";
 
 export function Heading({
-    text,
-    className,
+  text,
+  className,
 }: {
-    text: string;
-    className?: string;
+  text: string;
+  className?: string;
 }) {
-    return (
-        <h2
-            className={cn("text-center font-bold text-3xl text-blue-100 relative z-20", className)}
-        >
-            {text}
-        </h2>
-    );
+  return (
+    <h2
+      className={cn(
+        "text-center font-bold text-3xl text-blue-100 relative z-20",
+        className
+      )}
+    >
+      {text}
+    </h2>
+  );
 }

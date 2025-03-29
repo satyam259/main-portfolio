@@ -7,7 +7,8 @@ import {
     EmailTemplateForUser,
     EmailTemplateForAdmin,
 } from "@/components/email-templates";
-import { Resend } from "resend";
+import nodemailer from 'nodemailer';
+import { render } from '@react-email/render';
 
 interface FormData {
     name: string;
@@ -89,32 +90,40 @@ export async function getSanityData(): Promise<CombinedData | null> {
     }
 }
 
-export async function sendMail(
-    formData: FormData
+export async function sendMail( formData: FormData
 ): Promise<{ success: boolean; message?: string }> {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const transporter = nodemailer.createTransport({
+        service: 'Gmail', 
+        auth: {
+            user: process.env.SMTP_EMAIL, 
+            pass: process.env.SMTP_PASSWORD, 
+        },
+    });
+
+    const mailOptionsForUser = {
+        from: formData.currentEmail,
+        to: formData.email,
+        subject: "Contact Form Submission",
+        html:  render(EmailTemplateForUser({ ...formData })),
+    };
+
+    const mailOptionsForAdmin = {
+        from: formData.currentEmail,
+        to: formData.currentEmail,
+        subject: "New Inquiry from portfolio",
+        html: render(EmailTemplateForAdmin({ ...formData })),
+    };
+
     try {
-        const { error } = await resend.emails.send({
-            from: formData.currentEmail,
-            to: [formData.email],
-            subject: "Contact Form Submission",
-            react: EmailTemplateForUser({ ...formData }) as React.ReactElement,
-        });
-
-        if (error) throw new Error();
-
-        resend.emails.send({
-            from: formData.currentEmail,
-            to: [formData.currentEmail],
-            subject: "New Inquiry from portfolio",
-            react: EmailTemplateForAdmin({ ...formData }) as React.ReactElement,
-        });
-
+        await transporter.sendMail(mailOptionsForUser);
+        await transporter.sendMail(mailOptionsForAdmin);
         return { success: true };
     } catch (error) {
+        console.error("Error sending email:", error);
         return { success: false, message: "Something went wrong!" };
     }
 }
+
 
 export async function getSocialLinks(): Promise<SocialLink[] | null> {
     const query = groq`*[_type == "portfolioV4Data" && !(_id in path("drafts.**"))][0]{

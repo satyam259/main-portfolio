@@ -29,7 +29,9 @@ export function ExperienceSkills({ experiences, skills, certificates }: Props) {
     <section className="w-full py-10 md:py-20" id="about">
       <Container>
         <MotionUp delay={0.1}>
-          <Heading text="Career History" />
+          <h1 className="heading">
+            Work <span className="text-purple">Experience</span>
+          </h1>
           <Timeline data={sortedExperiences} />
         </MotionUp>
         {/* 

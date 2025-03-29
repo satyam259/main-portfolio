@@ -38,7 +38,6 @@ const getIconColors = (title: string) => {
       return "text-blue-500 hover:text-blue-700";
   }
 };
-console.log(getSocialIcons, "sdf");
 export function Contact({ personalInfo, socialLinks }: Props) {
   return (
     <SmallGridBackground className="py-10 md:py-20" id="contact">
@@ -53,7 +52,7 @@ export function Contact({ personalInfo, socialLinks }: Props) {
                 background: `linear-gradient(45deg, rgba(0,0,0,0.70) 30%, rgba(1,2,3,0.50) 100%), url('${personalInfo.setupImage}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundRepeat: "no-repeat"
+                backgroundRepeat: "no-repeat",
               }}
             >
               <div className="relative flex flex-wrap justify-center items-center w-full shadow-md">
@@ -95,7 +94,7 @@ export function Contact({ personalInfo, socialLinks }: Props) {
                 </div>
 
                 <div className="w-full lg:w-1/2 px-6 mt-4 gap-2 sm:mt-8 flex items-center">
-                  {sortByPriority(socialLinks).map(item =>
+                  {sortByPriority(socialLinks).map((item) => (
                     <Link
                       key={item.title}
                       href={item.url}
@@ -106,7 +105,7 @@ export function Contact({ personalInfo, socialLinks }: Props) {
                     >
                       {getSocialIcons(item.title)}
                     </Link>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>
