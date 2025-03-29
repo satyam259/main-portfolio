@@ -93,7 +93,9 @@ export async function getSanityData(): Promise<CombinedData | null> {
 export async function sendMail( formData: FormData
 ): Promise<{ success: boolean; message?: string }> {
     const transporter = nodemailer.createTransport({
-        service: 'Gmail', 
+         host: "smtp.gmail.com",
+    port: 587,  
+    secure: false,
         auth: {
             user: process.env.SMTP_EMAIL, 
             pass: process.env.SMTP_PASSWORD, 
@@ -118,9 +120,9 @@ export async function sendMail( formData: FormData
         await transporter.sendMail(mailOptionsForUser);
         await transporter.sendMail(mailOptionsForAdmin);
         return { success: true };
-    } catch (error) {
+    } catch (error:any) {
         console.error("Error sending email:", error);
-        return { success: false, message: "Something went wrong!" };
+        return { success: false, message:`Error: ${error.message}` };
     }
 }
 
