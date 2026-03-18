@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project boots---- -WH5QOFgaf_SYk4uqUPGXIsq5CK_2HmixVh4h937Pn7vtx6NEpj8TqCaZ8L1QvmZ2YYvuaXTtNRT3B1bkFJsZrnW0f-KAv72L-mIgG-eJedu6HB8ctLik6FvnT8-HxIXDKVjr_dtM05uQwrd1ARFKH2ytVp0A ---trapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrap with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
